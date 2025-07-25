@@ -235,6 +235,9 @@ body {
             margin-left: 15px;
             letter-spacing: 1px;
         }
+        .otp{
+            size:25px;
+        }
     </style>
   </head>
   <body>
@@ -250,19 +253,19 @@ body {
       <div class="sign-up">
         <form>
           <h1>Create Account</h1>
-          <input type="text" placeholder="Name" />
-          <input type="password" placeholder="Password" />
-          <input type="text" placeholder="Mobile No" />
-          <button>Sign Up</button>
+          <input type="text" placeholder="Name" required />
+          <input type="password" placeholder="Password" required />
+          <input type="text" placeholder="Mobile No" required />
+          <button id="otp">Send OTP</button>
+          <button onclick="signup()">Sign Up</button>
         </form>
       </div>
       <div class="sign-in">
         <form>
           <h1>Sign In</h1>
-          <input type="text" placeholder="User Nmae" />
-          <input type="password" placeholder="Password" />
-          <a href="#">Forgot password</a>
-          <button>Sign In</button>
+          <input type="text" placeholder="User Nmae" required />
+          <input type="password" placeholder="Password" required />
+          <button onclick="signin()">Sign In</button>
         </form>
       </div>
       <div class="toogle-container">
@@ -280,7 +283,7 @@ body {
         </div>
       </div>
     </div>
-    <script>
+    <script>    
         const container = document.getElementById("container");
         const registerbtn = document.getElementById("register");
         const loginbtn = document.getElementById("login");
