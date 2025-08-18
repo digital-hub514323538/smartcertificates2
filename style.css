@@ -1,0 +1,16 @@
+.faq {
+  list-style: none;
+  padding: 0;
+}
+
+.faq li {
+  margin: 15px 0;
+  padding: 10px;
+  border-left: 4px solid #2d89ef;
+  background: #f1f6ff;
+  border-radius: 4px;
+}
+.active {
+  background: white;
+  color: #2d89ef !important;
+}

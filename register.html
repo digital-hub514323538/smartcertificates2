@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - Smart Certificates</title>
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Logo" style="height:32px; vertical-align:middle; margin-right:10px;">
+      Smart Certificates
+    </div>
+  </nav>
+
+  <div class="auth-container">
+    <h2>Create Account</h2>
+    <form onsubmit="return registerUser(event)">
+      <input type="text" id="new-username" placeholder="Username" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="new-password" placeholder="Password" required>
+      
+      <!-- Corrected mobile number input -->
+      <input 
+        type="number" 
+        id="phone-no" 
+        placeholder="Mobile Number" 
+        maxlength="10"
+        pattern="\d{10}"
+        required 
+        title="Please enter exactly 10 digits">
+
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="index.html">Login</a></p>
+  </div>
+
+  <script>
+    function registerUser(event) {
+      event.preventDefault();
+      const phone = document.getElementById("phone-no").value;
+
+      // Correct regex for exactly 10 digits
+      if (!/^\d{10}$/.test(phone)) {
+        alert("Mobile number must be exactly 10 digits.");
+        return false;
+      }
+
+      alert("Registration successful!");
+      // redirect to home.html
+      window.location.href = "home.html";
+      return true;
+    }
+  </script>
+</body>
+</html>

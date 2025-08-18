@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Account - Smart Certificates</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #2d89ef;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: bold;
+      justify-content: space-between;
+    }
+    .navbar img {
+      height: 32px;
+      margin-right: 10px;
+    }
+    .account-btn {
+      background: none;
+      border: 2px solid white;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .account-btn:hover {
+      background-color: white;
+      color: #2d89ef;
+    }
+
+    /* Sidebar Drawer */
+    .account-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 380px;
+      max-width: 95vw;
+      background: #fff;
+      box-shadow: 2px 0 16px rgba(45,137,239,0.4);
+      transform: translateX(-100%);
+      transition: transform 0.35s cubic-bezier(0.75,0,0.25,1);
+      z-index: 2001;
+      padding: 28px 28px 20px 28px;
+      overflow-y: auto;
+    }
+    .account-sidebar.open {
+      transform: translateX(0);
+    }
+    .sidebar-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.24);
+      z-index: 2000;
+      display: none;
+    }
+    .sidebar-overlay.show {
+      display: block;
+    }
+    .sidebar-close-btn {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #2d89ef;
+    }
+
+    /* Content inside sidebar */
+    .account-sidebar h2 {
+      text-align: center;
+      color: #2d89ef;
+      margin-bottom: 25px;
+      font-weight: 700;
+      font-size: 1.6rem;
+    }
+    .profile-pic {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #2d89ef;
+      margin-bottom: 10px;
+    }
+    .profile-pic input {
+      display: none;
+    }
+    .profile-pic label {
+      background: #2d89ef;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input[type="text"] {
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus {
+      border-color: #2d89ef;
+      outline: none;
+    }
+    button[type="submit"] {
+      background-color: #2d89ef;
+      color: #fff;
+      padding: 14px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button[type="submit"]:hover {
+      background-color: #185abd;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .account-sidebar {
+        width: 90vw !important;
+        padding: 20px 5vw 20px 5vw;
+      }
+      .profile-pic img {
+        width: 100px;
+        height: 100px;
+      }
+      .account-sidebar h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div style="display:flex; align-items:center;">
+      <img src="logo.jpeg" alt="Logo"> 
+      Smart Certificates
+    </div>
+    <button class="account-btn" id="openAccountBtn" aria-label="Open My Account sidebar">My Account</button>
+  </div>
+
+  <!-- Sidebar drawer for My Account -->
+  <div class="sidebar-overlay" id="accountOverlay"></div>
+  <aside class="account-sidebar" id="accountSidebar" role="dialog" aria-modal="true" aria-labelledby="sidebarTitle" hidden>
+    <button class="sidebar-close-btn" id="closeSidebar" aria-label="Close My Account sidebar">&times;</button>
+    <h2 id="sidebarTitle">My Account</h2>
+    <div class="profile-pic">
+      <img id="profileImage" src="default-profile.png" alt="Profile Picture">
+      <input type="file" id="fileInput" accept="image/*">
+      <label for="fileInput">Change Profile Picture</label>
+    </div>
+    <form onsubmit="return saveAccount(event)">
+      <input type="text" id="username" placeholder="Enter your username" required>
+      <button type="submit">Save</button>
+    </form>
+  </aside>
+
+  <script>
+    const openAccountBtn = document.getElementById('openAccountBtn');
+    const accountSidebar = document.getElementById('accountSidebar');
+    const accountOverlay = document.getElementById('accountOverlay');
+    const closeSidebar = document.getElementById('closeSidebar');
+
+    // Open sidebar function
+    function openSidebar() {
+      accountSidebar.hidden = false;
+      setTimeout(() => {
+        accountSidebar.classList.add('open');
+        accountOverlay.classList.add('show');
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close sidebar function
+    function closeSidebarFunc() {
+      accountSidebar.classList.remove('open');
+      accountOverlay.classList.remove('show');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        accountSidebar.hidden = true;
+      }, 350);
+    }
+
+    openAccountBtn.addEventListener('click', openSidebar);
+    closeSidebar.addEventListener('click', closeSidebarFunc);
+    accountOverlay.addEventListener('click', closeSidebarFunc);
+
+    // Preview uploaded profile image
+    const fileInput = document.getElementById("fileInput");
+    const profileImage = document.getElementById("profileImage");
+    fileInput.addEventListener("change", function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileImage.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Save user account info
+    function saveAccount(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      alert("Account updated!\nUsername: " + username);
+      // Here, typically send data to backend API
+      return false;
+    }
+  </script>
+</body>
+</html>

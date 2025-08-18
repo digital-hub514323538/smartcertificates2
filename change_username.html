@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Change Username - Smart Certificates</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0; background: #f7f9fb;
+    }
+    .navbar {
+      background: #2d89ef; padding: 10px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .navbar .logo { color: white; font-size: 1.2em; font-weight: bold; }
+    .nav-links { list-style: none; display: flex; gap: 15px; }
+    .nav-links li a {
+      color: white; text-decoration: none; padding: 6px 12px; border-radius: 4px;
+    }
+    .nav-links li a:hover, .active { background: white; color: #2d89ef !important; }
+    .container {
+      max-width: 400px; margin: 40px auto; padding: 20px;
+      background: white; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    h2 { color: #2d89ef; margin-bottom: 15px; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input {
+      width: 100%; padding: 8px; margin: 6px 0 15px 0;
+      border: 1px solid #ccc; border-radius: 4px;
+    }
+    button {
+      background: #2d89ef; color: white; padding: 10px; width: 100%;
+      border: none; border-radius: 4px; cursor: pointer;
+    }
+    button:hover { background: #185abd; }
+    /* Navbar with back arrow, logo & title */
+    .navbar {
+      width: 100%;
+      background: #2d89ef;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      height: 60px;
+      box-shadow: 0 2px 10px rgba(35,102,184,0.06);
+      box-sizing: border-box;
+      gap: 6px;
+    }
+    /* Left part of navbar: back arrow, logo, and site name */
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .navbar-logo {
+      height: 32px;
+      width: 32px;
+      border-radius: 4px;
+      background: #fff;
+      object-fit: cover;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 3px rgba(35,102,184,0.11);
+      display: block;
+    }
+    .site-name {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.09);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    /* Right part: navigation links */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-links li {
+      position: relative;
+    }
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s, color 0.2s;
+      cursor: pointer;
+      user-select: none;
+    }
+    /* Default button styles for dropdown button */
+    .dropdown .dropbtn {
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 4px;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      user-select: none;
+    }
+    /* Hover and active state */
+    .nav-links li a:hover,
+    .nav-links li a.active,
+    .dropdown .dropbtn:hover,
+    .dropdown .dropbtn.active {
+      background-color: #fff;
+      color: #2d89ef;
+    }
+    .dropdown:hover .dropdown-content,
+    .dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 40px;
+      right: 0;
+      background-color: white;
+      min-width: 180px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      border-radius: 6px;
+      z-index: 1000;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .dropdown-content li a {
+      padding: 10px 16px;
+      display: block;
+      color: #2d89ef;
+      font-weight: normal;
+      border-radius: 0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .dropdown-content li a:hover {
+      background-color: #f1f6ff;
+      color: #185abd;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left" role="navigation" aria-label="Main navigation">
+      <img src="logo.jpeg" alt="Logo" class="navbar-logo" />
+      <span class="site-name">Smart Certificates</span>
+    </div>
+    <ul class="nav-links" role="menubar">
+      <li role="none"><a href="home.html" class="active" role="menuitem" tabindex="0">Home</a></li>
+      <li role="none"><a href="create.html" role="menuitem" tabindex="-1">Create Certificate</a></li>
+      <li role="none"><a href="mycertificates.html" role="menuitem" tabindex="-1">My Certificates</a></li>
+      <li role="none"><a href="help.html" role="menuitem" tabindex="-1">Help</a></li>
+      <li role="none"><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
+      <li class="dropdown" role="none" tabindex="0" aria-haspopup="true" aria-expanded="false">
+        <button class="dropbtn" aria-haspopup="true" aria-expanded="false" aria-controls="settings-menu">Settings ▾</button>
+        <ul class="dropdown-content" id="settings-menu" aria-label="submenu" role="menu">
+          <li role="none"><a href="change_username.html" role="menuitem" tabindex="-1">Change Username</a></li>
+          <li role="none"><a href="change_password.html" role="menuitem" tabindex="-1">Change Password</a></li>
+          <li role="none"><a href="#" onclick="logout()" role="menuitem" tabindex="-1">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>Change Username</h2>
+    <form onsubmit="return changeUsername(event)">
+      <label for="new-username">New Username</label>
+      <input type="text" id="new-username" placeholder="Enter new username" required>
+      <button type="submit">Update Username</button>
+    </form>
+  </div>
+
+  <script>
+    // Initialize dummy user
+    if (!localStorage.getItem("username")) {
+      localStorage.setItem("username", "testuser");
+    }
+
+    function changeUsername(e) {
+      e.preventDefault();
+      const newUsername = document.getElementById("new-username").value;
+      if (newUsername.trim() === "") {
+        alert("❌ Username cannot be empty!");
+        return false;
+      }
+      localStorage.setItem("username", newUsername);
+      alert("✅ Username updated to: " + newUsername);
+      document.getElementById("new-username").value = "";
+      return false;
+    }
+  </script>
+</body>
+</html>

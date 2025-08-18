@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home - Smart Certificates</title>
+  <link rel="stylesheet" href="style1.css" />
+  <style>
+    /* Navbar styles */
+    .navbar {
+      width: 100%;
+      background: #2d89ef;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      height: 60px;
+      box-shadow: 0 2px 10px rgba(35,102,184,0.06);
+      box-sizing: border-box;
+      gap: 6px;
+    }
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .navbar-logo {
+      height: 32px;
+      width: 32px;
+      border-radius: 4px;
+      background: #fff;
+      object-fit: cover;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 3px rgba(35,102,184,0.11);
+      display: block;
+    }
+    .site-name {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.09);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-links li a,
+    .nav-links li button {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .nav-links li a:hover,
+    .nav-links li a.active,
+    .nav-links li button:hover {
+      background-color: #fff;
+      color: #2d89ef;
+    }
+
+    /* Sidebar Drawer */
+    .account-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 340px;
+      max-width: 95vw;
+      background: #fff;
+      box-shadow: 2px 0 16px rgba(35,102,184,0.18);
+      transform: translateX(-100%);
+      transition: transform 0.35s cubic-bezier(0.75,0,0.25,1);
+      z-index: 2001;
+      padding: 28px 28px 20px 28px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .account-sidebar.open {
+      transform: translateX(0);
+    }
+    .sidebar-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.24);
+      z-index: 2000;
+      display: none;
+    }
+    .sidebar-overlay.show {
+      display: block;
+    }
+    .sidebar-close-btn {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #2d89ef;
+    }
+    .profile-pic {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #2d89ef;
+      margin-bottom: 8px;
+    }
+    .profile-pic input[type="file"] {
+      display: none;
+    }
+    .profile-pic label {
+      background: #2d89ef;
+      color: #fff;
+      padding: 7px 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+    .username-display {
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      color: #2d89ef;
+    }
+    .account-sidebar button.action-btn {
+      background-color: #2d89ef;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.26s;
+      margin: 10px 0;
+      width: 100%;
+      text-align: center;
+      user-select: none;
+    }
+    .account-sidebar button.action-btn:hover {
+      background: #185abd;
+    }
+
+    @media (max-width: 900px) {
+      .account-sidebar {
+        width: 90vw !important;
+        padding: 14px 9vw 18px 9vw;
+      }
+    }
+
+    /* Main container styles */
+    .container {
+      margin: 38px auto;
+      max-width: 650px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 3px 15px rgba(35,102,184,0.08);
+      text-align: center;
+    }
+    .container h2 {
+      color: #2d89ef;
+      margin-bottom: 13px;
+    }
+    .container p {
+      color: #3f4b6b;
+      font-size: 1.14rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-left" role="navigation" aria-label="Main navigation">
+      <img src="logo.jpeg" alt="Logo" class="navbar-logo" />
+      <span class="site-name">Smart Certificates</span>
+    </div>
+    <ul class="nav-links" role="menubar">
+      <li role="none"><a href="home.html" role="menuitem" tabindex="0" class="active">Home</a></li>
+      <li role="none"><a href="create.html" role="menuitem" tabindex="-1">Create Certificate</a></li>
+      <li role="none"><a href="mycertificates.html" role="menuitem" tabindex="-1">My Certificates</a></li>
+      <li role="none"><a href="help.html" role="menuitem" tabindex="-1">Help</a></li>
+      <li role="none"><a href="contact.html" role="menuitem" tabindex="-1">Contact</a></li>
+      <li role="none">
+        <button id="myAccountBtn" aria-label="Open my account sidebar">My Account</button>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>Welcome to Smart Certificates</h2>
+    <p>Create, manage, and share your professional certificates easily.</p>
+  </div>
+
+  <!-- Sidebar drawer for Account -->
+  <div class="sidebar-overlay" id="accountOverlay"></div>
+  <aside class="account-sidebar" id="accountSidebar" role="complementary" aria-label="My Account Sidebar">
+    <button class="sidebar-close-btn" id="closeSidebar" aria-label="Close my account drawer">&times;</button>
+    <h2>My Account</h2>
+    <div class="profile-pic">
+      <img id="profileImage" src="default-profile.png" alt="Profile Picture" />
+      <input type="file" id="fileInput" accept="image/*" />
+      <label for="fileInput">Change Profile Picture</label>
+    </div>
+    <div class="username-display" id="usernameDisplay">Username: </div>
+    <button class="action-btn" id="changeUsernameBtn" type="button">Change Username</button>
+    <button class="action-btn" id="changePasswordBtn" type="button">Change Password</button>
+  </aside>
+
+  <script>
+    const accountSidebar = document.getElementById("accountSidebar");
+    const accountOverlay = document.getElementById("accountOverlay");
+    const myAccountBtn = document.getElementById("myAccountBtn");
+    const closeSidebar = document.getElementById("closeSidebar");
+    const fileInput = document.getElementById("fileInput");
+    const profileImage = document.getElementById("profileImage");
+    const usernameDisplay = document.getElementById("usernameDisplay");
+    const changeUsernameBtn = document.getElementById("changeUsernameBtn");
+    const changePasswordBtn = document.getElementById("changePasswordBtn");
+
+    function loadUserInfo() {
+      const storedUsername = localStorage.getItem("username") || "GuestUser";
+      const storedProfilePic = localStorage.getItem("profilePic") || "default-profile.png";
+
+      usernameDisplay.textContent = "Username: " + storedUsername;
+      profileImage.src = storedProfilePic;
+    }
+
+    myAccountBtn.onclick = function () {
+      loadUserInfo();
+      accountSidebar.classList.add("open");
+      accountOverlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+    };
+
+    closeSidebar.onclick = function () {
+      accountSidebar.classList.remove("open");
+      accountOverlay.classList.remove("show");
+      document.body.style.overflow = "";
+    };
+
+    accountOverlay.onclick = function () {
+      accountSidebar.classList.remove("open");
+      accountOverlay.classList.remove("show");
+      document.body.style.overflow = "";
+    };
+
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profileImage.src = e.target.result;
+          localStorage.setItem("profilePic", e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    changeUsernameBtn.onclick = function () {
+      window.location.href = "change_username.html";
+    };
+
+    changePasswordBtn.onclick = function () {
+      window.location.href = "change_password.html";
+    };
+
+    window.addEventListener("storage", (e) => {
+      if (e.key === "username") {
+        loadUserInfo();
+      }
+      if (e.key === "profilePic") {
+        profileImage.src = e.newValue || "default-profile.png";
+      }
+    });
+
+    window.addEventListener("load", loadUserInfo);
+  </script>
+</body>
+</html>
