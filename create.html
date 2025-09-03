@@ -64,6 +64,22 @@
       box-shadow: 0 16px 32px rgba(45,137,239,0.18);
       border-color: #2d89ef; z-index: 2;
     }
+    /* Make the entire certificate-card clickable */
+.certificate-link {
+  text-decoration: none; /* remove blue underline */
+  color: inherit;        /* keep text color consistent */
+  display: inline-block; /* ensures proper layout */
+  border-radius: 18px;   /* inherit rounded corners */
+}
+
+/* Adjust hover effect when link (a) wraps the card */
+.certificate-link:hover .certificate-card {
+  transform: translateY(-10px) scale(1.045) rotate(-1deg);
+  box-shadow: 0 16px 32px rgba(45,137,239,0.18);
+  border-color: #2d89ef;
+  z-index: 2;
+}
+
     .certificate-card img {
       width: 100%; height: 170px; object-fit: cover;
       display: block; border-bottom: 1.5px solid #bcd0ee;
@@ -249,11 +265,14 @@
         <img src="java.jpeg" alt="Java Certificate" />
         <div class="certificate-title">Java Basics</div>
       </div>
-      <div class="certificate-card">
-         <a href="https://www.geeksforgeeks.org/courses/cpp-programming-basic-to-advanced"/>
-        <img src="C++" alt="C++ Certificate" />
-        <div class="certificate-title">C++</div>
-      </div>
+     <a href="https://www.geeksforgeeks.org/courses/cpp-programming-basic-to-advanced" 
+   target="_blank" class="certificate-link">
+  <div class="certificate-card">
+    <img src="C++" alt="C++ Certificate" />
+    <div class="certificate-title">C++</div>
+  </div>
+</a>
+
       <div class="certificate-card">
         <img src="c" alt="C Certificate" />
         <div class="certificate-title">C Language</div>
@@ -391,5 +410,6 @@
   </script>
 </body>
 </html>
+
 
 
